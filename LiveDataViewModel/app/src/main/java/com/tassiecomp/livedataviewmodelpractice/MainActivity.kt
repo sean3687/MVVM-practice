@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    //클릭 이벤트가 들어왔을때 발동
     override fun onClick(view: View?) {
-        //click event가 들어올때
         val userInput = userinput_edittext.text.toString().toInt()
 
         //뷰 모델에 라이브러리 값을 변경한느
