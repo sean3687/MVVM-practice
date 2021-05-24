@@ -8,17 +8,12 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="964edad6-00a4-4be4-a3a9-fb236525e6d7" name="Default Changelist" comment="" />
+    <list default="true" id="14e71075-aad0-4a05-882f-7036eba0cb45" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/LiveDataViewModel/app/src/main/java/com/tassiecomp/livedataviewmodelpractice/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/LiveDataViewModel/app/src/main/java/com/tassiecomp/livedataviewmodelpractice/MainActivity.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,14 +28,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1spCCAuzcPMk5iUjSppEKeJyefK" />
+  <component name="ProjectId" id="1sy8ceHpvMRnRnFxkMDFW7RtG9O" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/LiveDataViewModel" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/TimerwithLiveData" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -51,7 +46,7 @@
       </method>
     </configuration>
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
-      <module name="LiveDataViewModel_Practice.app" />
+      <module name="TimerwithLiveData.app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
       <option name="DEPLOY_AS_INSTANT" value="false" />
@@ -112,29 +107,18 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="964edad6-00a4-4be4-a3a9-fb236525e6d7" name="Default Changelist" comment="" />
-      <created>1621560014470</created>
+      <changelist id="14e71075-aad0-4a05-882f-7036eba0cb45" name="Default Changelist" comment="" />
+      <created>1621833550051</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1621560014470</updated>
+      <updated>1621833550051</updated>
     </task>
     <servers />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
   <component name="WindowStateProjectService">
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1621561083507">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1621833619086">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621561083507" />
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1621833619086" />
   </component>
 </project>
