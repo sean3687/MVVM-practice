@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
                 },
                 onClickItem = {
                     viewModel.toggleTodo(it) //toggle todo를 it을 넣어서 실행
-
                 }
             )
         }
@@ -128,6 +127,7 @@ class TodoAdapter(
 }
 
 class MainViewModel: ViewModel(){
+
     val todoLiveData = MutableLiveData<List<Todo>>()
 
 
