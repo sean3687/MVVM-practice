@@ -9,6 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
 import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tassiecomp.mvvmlivedata.databinding.ActivityMainBinding
@@ -19,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val data = arrayListOf<Todo>()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,38 +41,33 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = TodoAdapter(data,
+            adapter = TodoAdapter(
+                emptyList(),
                 onClickDeleteIcon = {
-                    deleteTodo(it)
+                    viewModel.deleteTodo(it)
                 },
                 onClickItem = {
-                    toggleTodo(it)
+                    viewModel.toggleTodo(it) //toggle todo를 it을 넣어서 실행
+
                 }
             )
         }
 
         binding.addButton.setOnClickListener {
-            addTodo()
+            val todo = Todo(binding.editText.text.toString())
+            viewModel.addTodo(todo)
         }
 
+        // 관찰 UI 업데이트
+        viewModel.todoLiveData.observe(this, Observer{
+            //livedata에 저장된 값이 바뀔때마다. viewmodel에 있는 함수가 실행된다.
+            //이제 우리는 adapter의 값을 갱신해주면된다.
+            (binding.recyclerView.adapter as TodoAdapter).setData(it)
+        })
+
 
     }
 
-    private fun toggleTodo(todo:Todo){
-        todo.isDone = !todo.isDone
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    private fun addTodo() {
-        val todo = Todo(binding.editText.text.toString())
-        data.add(todo)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    private fun deleteTodo(todo: Todo) {
-        data.remove(todo)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
 }
 
 data class Todo(
@@ -78,7 +77,7 @@ data class Todo(
 
 
 class TodoAdapter(
-    private val myDataset: List<Todo>,
+    private var myDataset: List<Todo>,
     val onClickDeleteIcon: (todo: Todo) -> Unit,//이 함수자체에 return이 없다는 뜻
     val onClickItem: (todo: Todo) -> Unit
 ) ://이 함수자체에 return이 없다는 뜻
@@ -121,4 +120,32 @@ class TodoAdapter(
 
     override fun getItemCount() = myDataset.size
 
+    fun setData(newData: List<Todo>) {
+        myDataset = newData
+        notifyDataSetChanged() //newdata가 바뀔떄마다 이기능이 실행되도록 했다.
+
+    }
+}
+
+class MainViewModel: ViewModel(){
+    val todoLiveData = MutableLiveData<List<Todo>>()
+
+
+    //mainactivity에 데이터 관련된 애들을 여기로 옮기는 작업을할것이다.
+    private val data = arrayListOf<Todo>()
+
+    fun toggleTodo(todo:Todo){
+        todo.isDone = !todo.isDone
+        todoLiveData.value = data //이걸로인해 data값들이 업데이트된다. 이제 이걸 layout에 적용시켜야한다.
+    }
+
+    fun addTodo(todo:Todo) {
+        data.add(todo)
+        todoLiveData.value = data
+    }
+
+    fun deleteTodo(todo: Todo) {
+        data.remove(todo)
+        todoLiveData.value = data
+    }
 }
