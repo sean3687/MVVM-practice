@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val data = arrayListOf<Todo>()
+    private val viewModel: MyViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,39 +28,28 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = TodoAdapter(data,
+        binding.recyclerView.adapter = TodoAdapter(
+            viewModel.data,
             onClickDeleteIcon = { //onBindViewHolder에서 listposition을 전달받고 이 함수를 실행하게 된다.
-                deleteTask(it)//it은 list position이기때문에 그 포지션의 항목이 delete task가 실행되면서 제거된다.
+                viewModel.deleteTask(it) //it은 list position이기때문에 그 포지션의 항목이 delete task가 실행되면서 제거된다.
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             },
             onClickItem = {
-                toggleTodo(it)
+                viewModel.toggleTodo(it)
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
 
         )
 
-        add_button.setOnClickListener {
-            addTask()
-
+        binding.addButton.setOnClickListener {
+            val todo = Todo(binding.editText.text.toString())
+//            addTask()
+            viewModel.addTask(todo)
+            binding.recyclerView.adapter?.notifyDataSetChanged()
         }
 
-    }
-
-    fun addTask() {
-        val todo = Todo(binding.editText.text.toString())
-        data.add(todo)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-
-    }
-
-    fun deleteTask(todo: Todo) {
-        data.remove(todo)
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-    }
-
-    fun toggleTodo(todo:Todo){
-        todo.isDone = !todo.isDone
-        binding.recyclerView.adapter?.notifyDataSetChanged()
     }
 
 
@@ -121,6 +111,20 @@ class TodoAdapter(
 
 
 class MyViewModel : ViewModel() {
+    val data = arrayListOf<Todo>()
+
+    fun toggleTodo(todo:Todo){
+        todo.isDone = !todo.isDone
+    }
+
+    fun addTask(todo:Todo) {
+        data.add(todo)
+    }
+
+    fun deleteTask(todo: Todo) {
+        data.remove(todo)
+    }
+
 //    private val task:MutableLiveData<Todo>
 //    private val users: MutableLiveData<List<User>> by lazy {
 //        MutableLiveData<List<User>>().also {
