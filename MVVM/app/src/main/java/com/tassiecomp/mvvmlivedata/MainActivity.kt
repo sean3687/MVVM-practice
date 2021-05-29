@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
             val todo = Todo(binding.editText.text.toString())
             viewModel.addTodo(todo)
         }
-
         // 관찰 UI 업데이트
         viewModel.todoLiveData.observe(this, Observer{
             //livedata에 저장된 값이 바뀔때마다. viewmodel에 있는 함수가 실행된다.

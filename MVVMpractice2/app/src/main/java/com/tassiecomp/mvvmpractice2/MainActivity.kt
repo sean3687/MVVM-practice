@@ -38,17 +38,12 @@ class MainActivity : AppCompatActivity() {
             onClickDeleteIcon = { //onBindViewHolder에서 listposition을 전달받고 이 함수를 실행하게 된다.
                 viewModel.deleteTask(it) //it은 list position이기때문에 그 포지션의 항목이 delete task가 실행되면서 제거된다.
                 binding.recyclerView.adapter?.notifyDataSetChanged()
-            },
-            onClickItem = {
-                viewModel.toggleTodo(it)
-                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
 
         )
 
         binding.addButton.setOnClickListener {
             val todo = Todo(binding.editText.text.toString())
-//            addTask()
             viewModel.addTask(todo)
             binding.recyclerView.adapter?.notifyDataSetChanged()
         }
@@ -61,6 +56,8 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+
 }
 
 data class Todo(
@@ -70,8 +67,7 @@ data class Todo(
 
 class TodoAdapter(
     private var mydataSet: List<Todo>,
-    val onClickDeleteIcon: (todo: Todo) -> Unit,
-    val onClickItem:(todo:Todo)->Unit//delete button이 눌렸을때 onclickDelete Icon을 실행하라는뜻, 0->Unit이기때문에 함수자체에 return없다는뜻
+    val onClickDeleteIcon: (todo: Todo) -> Unit
 ) :
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
@@ -94,30 +90,17 @@ class TodoAdapter(
         todoViewHolder.binding.deleteImage.setOnClickListener {
             onClickDeleteIcon.invoke(listposition) //눌렀을때 listposition를 전달하면서 함수를 실행한다.
         }
-        if (listposition.isDone) {
-//            todoViewHolder.binding.todoText.paintFlags =
-//                todoViewHolder.binding.todoText.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            todoViewHolder.binding.todoText.apply {
-                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            }
-        } else {
-            todoViewHolder.binding.todoText.apply {
-                paintFlags = 0
-            }
 
-        }
-        todoViewHolder.binding.root.setOnClickListener {
-            onClickItem.invoke(listposition)
-        }
 
     }
 
     override fun getItemCount() = mydataSet.size
 
     fun setData(newData:List<Todo>){
-        var mydataSet = newData
+        mydataSet = newData
         notifyDataSetChanged()
     }
+
 
 
 }
@@ -127,11 +110,6 @@ class MyViewModel : ViewModel() {
     val todoLiveData = MutableLiveData<List<Todo>>() //변경/관찰가능한 List<Todo>타입에 LiveData
 
     private val data = arrayListOf<Todo>()
-
-    fun toggleTodo(todo:Todo){
-        todo.isDone = !todo.isDone
-        todoLiveData.value = data
-    }
 
     fun addTask(todo:Todo) {
         data.add(todo)
