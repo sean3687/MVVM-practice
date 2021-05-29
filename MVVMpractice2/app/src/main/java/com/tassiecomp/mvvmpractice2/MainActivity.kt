@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = TodoAdapter(
-            viewModel.data,
+            emptyList(),
             onClickDeleteIcon = { //onBindViewHolder에서 listposition을 전달받고 이 함수를 실행하게 된다.
                 viewModel.deleteTask(it) //it은 list position이기때문에 그 포지션의 항목이 delete task가 실행되면서 제거된다.
                 binding.recyclerView.adapter?.notifyDataSetChanged()
@@ -50,6 +53,11 @@ class MainActivity : AppCompatActivity() {
             binding.recyclerView.adapter?.notifyDataSetChanged()
         }
 
+        //관찰UI업데이트
+        viewModel.todoLiveData.observe(this, Observer { //viewmodel에서 만든 변경관찰 가능한todoLiveData를 가져온다.
+            (binding.recyclerView.adapter as TodoAdapter).setData(it)
+        })
+
     }
 
 
@@ -61,7 +69,7 @@ data class Todo(
 )
 
 class TodoAdapter(
-    private val dataSet: List<Todo>,
+    private var mydataSet: List<Todo>,
     val onClickDeleteIcon: (todo: Todo) -> Unit,
     val onClickItem:(todo:Todo)->Unit//delete button이 눌렸을때 onclickDelete Icon을 실행하라는뜻, 0->Unit이기때문에 함수자체에 return없다는뜻
 ) :
@@ -81,7 +89,7 @@ class TodoAdapter(
     }
 
     override fun onBindViewHolder(todoViewHolder: TodoViewHolder, position: Int) {//item을 화면에 표시해주는
-        val listposition = dataSet[position]
+        val listposition = mydataSet[position]
         todoViewHolder.binding.todoText.text = listposition.text
         todoViewHolder.binding.deleteImage.setOnClickListener {
             onClickDeleteIcon.invoke(listposition) //눌렀을때 listposition를 전달하면서 함수를 실행한다.
@@ -104,25 +112,35 @@ class TodoAdapter(
 
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = mydataSet.size
+
+    fun setData(newData:List<Todo>){
+        var mydataSet = newData
+        notifyDataSetChanged()
+    }
 
 
 }
 
 
 class MyViewModel : ViewModel() {
-    val data = arrayListOf<Todo>()
+    val todoLiveData = MutableLiveData<List<Todo>>() //변경/관찰가능한 List<Todo>타입에 LiveData
+
+    private val data = arrayListOf<Todo>()
 
     fun toggleTodo(todo:Todo){
         todo.isDone = !todo.isDone
+        todoLiveData.value = data
     }
 
     fun addTask(todo:Todo) {
         data.add(todo)
+        todoLiveData.value = data //todoLiveData를 add된 데이터로 변경
     }
 
     fun deleteTask(todo: Todo) {
         data.remove(todo)
+        todoLiveData.value = data //todoLiveData를 remove된 데이터로 변경, 이제 TodoLiveData로 UI값을 변경해줘야한다.
     }
 
 //    private val task:MutableLiveData<Todo>
