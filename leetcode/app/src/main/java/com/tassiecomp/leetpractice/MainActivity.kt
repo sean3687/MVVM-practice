@@ -10,22 +10,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val numbers: IntArray = intArrayOf(1,2,3,4,5,6,7)
-        val result = main(numbers,3)
+        val result = rotate(numbers,3)
         Log.d("TAGGG", "result = $result")
 
     }
 }
 
-fun main(nums: IntArray, k: Int): Unit {
-    class Solution {
-        fun rotate(nums: IntArray, k: Int) {
-            val a = IntArray(nums.size)
-            for (i in nums.indices) {
-                a[(i + k) % nums.size] = nums[i]
+fun rotate(nums: IntArray, k: Int): Unit {
+
+    val step = k % nums.size
+    var cache = nums[0]
+    var i = 0
+    var indexStart = 0
+    var total = 0
+    while(true) {
+        val index = (i + step) % nums.size
+        val tmp = nums[index]
+        nums[index] = cache
+        cache = tmp
+        total ++
+        if (indexStart == index) {
+            if (total == nums.size) {
+                break
+            } else {
+                i  = index + 1
+                indexStart = i
+                cache = nums[i]
             }
-            for (i in nums.indices) {
-                nums[i] = a[i]
-            }
+        } else {
+            i = index
         }
     }
 }
