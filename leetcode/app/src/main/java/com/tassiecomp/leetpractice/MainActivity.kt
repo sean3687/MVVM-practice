@@ -3,6 +3,8 @@ package com.tassiecomp.leetpractice
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,32 +18,7 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-fun rotate(nums: IntArray, k: Int): Unit {
 
-    val step = k % nums.size
-    var cache = nums[0]
-    var i = 0
-    var indexStart = 0
-    var total = 0
-    while(true) {
-        val index = (i + step) % nums.size
-        val tmp = nums[index]
-        nums[index] = cache
-        cache = tmp
-        total ++
-        if (indexStart == index) {
-            if (total == nums.size) {
-                break
-            } else {
-                i  = index + 1
-                indexStart = i
-                cache = nums[i]
-            }
-        } else {
-            i = index
-        }
-    }
-}
 
 
 

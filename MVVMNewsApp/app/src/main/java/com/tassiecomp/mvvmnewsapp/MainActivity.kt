@@ -1,12 +1,9 @@
 package com.tassiecomp.mvvmnewsapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,36 +13,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        GlobalScope.launch(Dispatchers.Main) {
-//          launch can have parameter: Dispatchers.
-            //main: start coroutine on main thread, useful when you deal with UI
-            //IO: all kind of data operation eg. networking,writing to data base,reading and writing to file
-            //Default: choose if you are planning on 1000 of calculation it should not block main thread
-            //Unconfined:
+        val job = GlobalScope.launch(Dispatchers.Default) {
+            Log.d(TAG, "Starting long running calculation")
+            withTimeout(3000L) {
+                for (i in 30..40) {
+                    if (isActive) {
+                        Log.d(TAG, "Result for i = $i : ${fib(i)}")
+                    }
 
-            Log.d(TAG,"1")
+                }
+            }
 
-            //we will going to write we will execute coroutine
-            delay(3000L) //delay will pause the current coroutine not whole thread
-            //which means this paused thread will be out of work but other thread will be keep running
-            //delay is different from sleep bc sleeping is whole worker in thread is sleeping
-            //while delay is loading, if we quit app what's gona happen is coroutine will be canceld
-            Log.d(TAG, "2")
+            Log.d(TAG, "Ending Long running calculation")
 
-            //delay is suspend function and it only able to execute inside suspend function or coroutine
-            doNetworkCall()// it can be only called inside coroutine
-            Log.d(TAG, "3")
-            doNetworkCall2() // the 2nd call is done after first call is done
-            Log.d(TAG, "4")
         }
-        Log.d(TAG, "5")
+
+        runBlocking {
+
+            delay(2000L)
+            job.cancel()
+            Log.d(TAG, "job canceled")
+        }
+
     }
 
-    suspend fun doNetworkCall():String{
+    fun fib(n: Int): Long {
+        return if (n == 0) 0
+        else if (n == 1) 1
+        else fib(n - 1) + fib(n - 2)
+    }
+
+    suspend fun doNetworkCall(): String {
         delay(3000L)
         return "this is the answer"
     }
-    suspend fun doNetworkCall2(): String{
+
+    suspend fun doNetworkCall2(): String {
         delay(3000L)
         return "this is the answer"
     }
