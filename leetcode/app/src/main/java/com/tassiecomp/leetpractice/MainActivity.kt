@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
+    val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,28 +18,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun plusOne(digits: IntArray): IntArray {
-        val answer = arrayListOf<Int>()
-
-        val str = (digits.joinToString().replace(",", "").replace(" ", ""))
-        Log.d("TAGG", "$str")
-        Log.d("TAGG", "length = ${str.length}")
-        Log.d("TAGG", "position1 = ${str.get(1).toString().toInt()}")
-
-
-        val test = (str.toInt() + 1).toString()
-        Log.d("TAGG", "test = $test")
-
-        var i = 0
-        while (i <= test.length-1){
-            val insert = test.get(i).toString().toInt()
-            answer.add(insert)
-            Log.d("TAGG", "$answer")
-            ++i
+        if (digits.last() < 9) {
+            Log.d(TAG, "lastdigit = ${digits.last()}")
+            digits[digits.lastIndex] = digits.last() + 1
+            return digits
         }
-
-        val answerint = answer
-        Log.d("TAGG", "answerint = ${answerint}")
-        return answerint.toIntArray()
+        for (i in digits.lastIndex downTo 0) {
+            digits[i]++
+            if (digits[i] >= 10) {
+                digits[i] = 0
+            } else {
+                return digits
+            }
+        }
+        return intArrayOf(1, *digits)
     }
 
 
