@@ -11,27 +11,34 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val array = intArrayOf(6)
-        val response = plusOne(array)
+        val array = intArrayOf(0,1,0,3,12)
+        val response = moveZeroes(array)
         Log.d("TAGGG", "result = $response")
 
     }
 
-    fun plusOne(digits: IntArray): IntArray {
-        if (digits.last() < 9) {
-            Log.d(TAG, "lastdigit = ${digits.last()}")
-            digits[digits.lastIndex] = digits.last() + 1
-            return digits
-        }
-        for (i in digits.lastIndex downTo 0) {
-            digits[i]++
-            if (digits[i] >= 10) {
-                digits[i] = 0
-            } else {
-                return digits
+    fun moveZeroes(nums: IntArray): Unit {
+        var k = 0 //
+        var i = 0 //
+
+        while (k < nums.size || i < nums.size) {
+            if (nums[i] == 0) {
+
+                if (nums[k] != 0) {
+                    nums[i] = nums[k]
+                    nums[k] = 0
+                    i++
+                    k++
+                } else{
+                    k++
+                }
+
+            } else{
+                i++
             }
+            Log.d(TAG,"${nums.joinToString()}")
         }
-        return intArrayOf(1, *digits)
+        Log.d(TAG,"${nums.joinToString()}")
     }
 
 

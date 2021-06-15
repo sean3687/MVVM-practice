@@ -1,14 +1,7 @@
 package com.tassiecomp.mvvmnewsapp
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.*
-import kotlin.system.measureTimeMillis
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,20 +11,31 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnStartActivity.setOnClickListener{
-            Viewmodel.launch {
-                while (true){ //button눌린게 true면 still running로그 반복 프린트
-                    delay(1000L) //1초 간격으로 printing
-                    Log.d(TAG,"Still running")
+    }
 
-                }
-                //when new intent was created,
-            }
-            GlobalScope.launch {
-                delay(5000L) //5초후 intent시작
-                Intent(this@MainActivity, SecondActivity::class.java).also{
-                    startActivity(it)
-                    finish()
+    fun moveZeroes(nums: IntArray): Unit {
+        var k = 0
+        var i = 0
+
+        if (nums.size == 1) {
+
+        } else {
+            while (k < nums.size) {
+
+                if (nums[i] == 0) {
+
+                    if (nums[k] != 0) {
+                        nums[i] = nums[k]
+                        nums[k] = 0
+                        i++
+                        k++
+                    } else {
+                        k++
+                    }
+
+                } else {
+                    i++
+                    k++
                 }
             }
         }
