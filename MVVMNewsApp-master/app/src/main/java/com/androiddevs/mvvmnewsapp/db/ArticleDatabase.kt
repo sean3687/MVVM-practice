@@ -1,10 +1,7 @@
 package com.androiddevs.mvvmnewsapp.db
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
+import androidx.room.*
 import com.androiddevs.mvvmnewsapp.models.Article
 
 @Database(
@@ -12,8 +9,9 @@ import com.androiddevs.mvvmnewsapp.models.Article
     version = 1
 )
 
-@TypeConverter(Converters::class)
+@TypeConverters(Converters::class)
 abstract class ArticleDatabase:RoomDatabase() {
+
     abstract fun getArticleDao():ArticleDao
 
 
