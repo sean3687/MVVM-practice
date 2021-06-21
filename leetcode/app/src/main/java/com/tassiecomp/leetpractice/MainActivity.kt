@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
+import kotlin.collections.HashMap
 
 
 class MainActivity : AppCompatActivity() {
@@ -13,24 +14,36 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val s = "hello"
-//        val response = firstUniqChar(s)
-//        Log.d(TAG, "result = $response")
+        val t = "elloh"
+
+        isAnagram(s,t)
 
     }
 
 }
 
 
-class Solution {
-    fun firstUniqChar(s: String): Int {
-        val hashMap = HashMap<Char, Int>() //비어있는 hashmap을 리턴합니다.
-        val size = s.length
-        for (i in 0 until size) {
-//            val count =
-        }
-        return 1
+fun isAnagram(s: String, t: String): Boolean {
+    val hashMap_S = hashMapOf<Char,Int>()
+    val hashMap_T = hashMapOf<Char,Int>()
+
+
+
+    for (i in 0 until s.length){
+        var string = s[i]
+        hashMap_S[string] = hashMap_S.getOrDefault(string,0)+1
     }
+
+    for(i in 0 until t.length){
+        var string = t[i]
+        hashMap_T[string] = hashMap_T.getOrDefault(string,0)+1
+    }
+
+    return hashMap_S.equals(hashMap_T)
+
+
 }
+
 
 
 
