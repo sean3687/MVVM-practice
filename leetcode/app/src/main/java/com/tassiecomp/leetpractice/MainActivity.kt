@@ -14,19 +14,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val s = "A man, a plan, a canal: Panama"
-        isPalindrome(s)
+        val s = "-0032"
+        myAtoi(s)
 
     }
 
 }
 
 
-fun isPalindrome(s: String): Boolean{
-    val regex = Regex("[^A-Za-z0-9]")
-    val result = regex.replace(s, "").toLowerCase()
-    result.filter { !it.isWhitespace() }
-    return result.reversed() == result
+fun myAtoi(s: String): Int {
+    val str = StringBuilder()
+    val j =0
+    val k =1
+    for (i in s.indices) { //i 는 -나올때까지 반복
+        if (s.get(i) == -){
+            while (j<k){
+                if()
+            }
+        }else{
+
+        }
+    }
+
 
 }
 
