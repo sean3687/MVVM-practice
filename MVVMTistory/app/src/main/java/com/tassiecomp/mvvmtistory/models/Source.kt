@@ -1,4 +1,5 @@
-package com.tassiecomp.mvvmtistory
+package com.tassiecomp.mvvmtistory.models
+
 
 data class Source(
     val id: String,

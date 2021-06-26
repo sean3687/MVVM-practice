@@ -1,8 +1,7 @@
-package com.tassiecomp.mvvmtistory
+package com.tassiecomp.mvvmtistory.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.tassiecomp.mvvmtistory.Source
 
 @Entity(
     tableName = "articles"
@@ -17,7 +16,7 @@ data class Article(
     val content: String,
     val description: String,
     val publishedAt: String,
-    val source: Source,
+    val source: Source, //as you see here source class has type as source we need to use type converter to convert this to string
     val title: String,
     val url: String,
     val urlToImage: String

@@ -1,6 +1,6 @@
-package com.tassiecomp.mvvmtistory
+package com.tassiecomp.mvvmtistory.models
 
-import com.tassiecomp.mvvmtistory.Article
+import com.tassiecomp.mvvmtistory.models.Article
 
 data class NewsResponse(
     val articles: List<Article>,

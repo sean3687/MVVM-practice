@@ -1,6 +1,6 @@
 package com.tassiecomp.mvvmtistory.api
 
-import com.tassiecomp.mvvmtistory.NewsResponse
+import com.tassiecomp.mvvmtistory.models.NewsResponse
 import com.tassiecomp.mvvmtistory.utils.Constants.Companion.API_KEY
 import retrofit2.Response
 import retrofit2.http.GET

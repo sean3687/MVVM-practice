@@ -2,7 +2,7 @@ package com.tassiecomp.mvvmtistory.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.tassiecomp.mvvmtistory.Article
+import com.tassiecomp.mvvmtistory.models.Article
 
 @Dao
 interface ArticleDao {
@@ -16,5 +16,5 @@ interface ArticleDao {
     //라이브데이터를 반환 하기때문에 기사가 추가되거나 바뀔때 UI에 업데이트됩니다.
 
     @Delete
-    suspend fun deleteArticle(article:Article)
+    suspend fun deleteArticle(article: Article)
 }
