@@ -14,30 +14,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val s = "-0032"
-        myAtoi(s)
+        val s = "abccccc"
+        val p = "abc"
+        strStr(s,p)
 
     }
+
 
 }
 
 
-fun myAtoi(s: String): Int {
-    val str = StringBuilder()
-    val j =0
-    val k =1
-    for (i in s.indices) { //i 는 -나올때까지 반복
-        if (s.get(i) == -){
-            while (j<k){
-                if()
-            }
-        }else{
-
+fun strStr(haystack: String, needle: String): Int {
+    if (haystack.length == 0 && needle.length ==0){
+        return 0
+    } else{
+        if (haystack.contains(needle)){
+            val result = haystack.indexesOf(haystack,ignoreCase = true)
+            return result[0]
+        } else{
+            return -1
         }
     }
 
-
 }
+fun ignoreCaseOpt(ignoreCase: Boolean) =
+    if (ignoreCase) setOf(RegexOption.IGNORE_CASE) else emptySet()
+fun String?.indexesOf(pat: String, ignoreCase: Boolean = true): List<Int> =
+    pat.toRegex(ignoreCaseOpt(ignoreCase))
+        .findAll(this?: "")
+        .map { it.range.first }
+        .toList()
+
+
+
 
 
 
