@@ -14,49 +14,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val s = "abccccc"
-        val p = "abc"
-        strStr(s,p)
+        var li = ListNode(5)
+        var v = li.`val`
+        class ListNode(var `val`: Int) {
+           var next: ListNode? = null
+            }
 
     }
 
 
 }
 
-
-fun strStr(haystack: String, needle: String): Int {
-    if (haystack.length == 0 && needle.length ==0){
-        return 0
-    } else{
-        if (haystack.contains(needle)){
-            val result = haystack.indexesOf(haystack,ignoreCase = true)
-            return result[0]
-        } else{
-            return -1
+fun deleteNode(node: ListNode?) {
+    var temp = node
+    var nextNode = temp?.next
+    while (temp != null && nextNode != null) {
+        temp.`val` = nextNode.`val`
+        if (nextNode.next == null) {
+            temp.next = null
+            return
         }
+        temp = nextNode
+        nextNode = nextNode.next
     }
-
 }
-fun ignoreCaseOpt(ignoreCase: Boolean) =
-    if (ignoreCase) setOf(RegexOption.IGNORE_CASE) else emptySet()
-fun String?.indexesOf(pat: String, ignoreCase: Boolean = true): List<Int> =
-    pat.toRegex(ignoreCaseOpt(ignoreCase))
-        .findAll(this?: "")
-        .map { it.range.first }
-        .toList()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
