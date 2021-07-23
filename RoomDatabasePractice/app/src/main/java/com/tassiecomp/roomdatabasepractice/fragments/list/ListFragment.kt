@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tassiecomp.roomdatabasepractice.R
-import com.tassiecomp.roomdatabasepractice.data.UserViewModel
+import com.tassiecomp.roomdatabasepractice.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
 
-    private lateinit var mUserViewModel:UserViewModel
+    private lateinit var mUserViewModel: UserViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

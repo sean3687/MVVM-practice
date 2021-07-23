@@ -11,11 +11,10 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tassiecomp.roomdatabasepractice.R
-import com.tassiecomp.roomdatabasepractice.data.User
-import com.tassiecomp.roomdatabasepractice.data.UserViewModel
+import com.tassiecomp.roomdatabasepractice.model.User
+import com.tassiecomp.roomdatabasepractice.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
-import org.w3c.dom.Text
 
 
 class AddFragment : Fragment() {

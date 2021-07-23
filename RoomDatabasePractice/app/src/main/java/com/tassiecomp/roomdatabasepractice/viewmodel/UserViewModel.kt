@@ -1,16 +1,19 @@
-package com.tassiecomp.roomdatabasepractice.data
+package com.tassiecomp.roomdatabasepractice.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.tassiecomp.roomdatabasepractice.data.UserDatabase
+import com.tassiecomp.roomdatabasepractice.repository.UserRepository
+import com.tassiecomp.roomdatabasepractice.model.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class UserViewModel(application: Application): AndroidViewModel(application) {
 
     public val readAllData:LiveData<List<User>>
-    private val repository:UserRepository
+    private val repository: UserRepository
 
     init {
         val userDao = UserDatabase.getDatabase(application).userDao()
@@ -18,7 +21,7 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
         readAllData = repository.readAllData
     }
 
-    fun addUser(user:User){
+    fun addUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addUser(user)
         }
