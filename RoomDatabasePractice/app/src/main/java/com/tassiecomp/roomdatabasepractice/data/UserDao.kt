@@ -8,7 +8,8 @@ import androidx.room.Query
 
 @Dao
 interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)//같은 데이터가 있으면 무시
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addUser(user:User)
 
     @Query("SELECT * FROM user_table ORDER BY id ASC")
