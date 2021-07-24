@@ -12,4 +12,8 @@ class UserRepository(private val userDao: UserDao) {
         userDao.addUser(user) //DAO에서 만들었던 adduser을 실행합니다.
     }
 
+    suspend fun updateUser(user:User){
+        userDao.updateUser(user)
+    }
+
 }

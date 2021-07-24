@@ -7,9 +7,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tassiecomp.roomdatabasepractice.R
 import com.tassiecomp.roomdatabasepractice.model.User
+import com.tassiecomp.roomdatabasepractice.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import kotlinx.android.synthetic.main.fragment_update.view.*
 
@@ -18,6 +22,8 @@ class UpdateFragment : Fragment() {
 
     private val args by navArgs<UpdateFragmentArgs>()
 
+    private lateinit var mUserViewModel:UserViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,6 +31,8 @@ class UpdateFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view =  inflater.inflate(R.layout.fragment_update, container, false)
+
+        mUserViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         view.updateFirstName_et.setText(args.currentUser.firstName)
         view.updateLastName_et.setText(args.currentUser.firstName)
@@ -44,7 +52,13 @@ class UpdateFragment : Fragment() {
         if (inputCheck(firstName,lastName,updateAge_et.text)){
             val updatedUser = User(args.currentUser.id, firstName, lastName,age)
             //val update Current user
-            mUserViewModel.
+            mUserViewModel.updateUser(updatedUser)
+
+            Toast.makeText(requireContext(),"UpdatedSuccessfully",Toast.LENGTH_SHORT).show()
+            //navigate back
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        } else{
+            Toast.makeText(requireContext(),"Please fill out all field",Toast.LENGTH_SHORT).show()
         }
     }
     private fun inputCheck(firstName:String, lastName:String, age: Editable):Boolean{
