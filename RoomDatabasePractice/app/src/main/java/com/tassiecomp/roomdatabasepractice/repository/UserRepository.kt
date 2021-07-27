@@ -3,6 +3,7 @@ package com.tassiecomp.roomdatabasepractice.repository
 import androidx.lifecycle.LiveData
 import com.tassiecomp.roomdatabasepractice.data.UserDao
 import com.tassiecomp.roomdatabasepractice.model.User
+import kotlinx.coroutines.Dispatchers
 
 class UserRepository(private val userDao: UserDao) {
 
@@ -15,5 +16,14 @@ class UserRepository(private val userDao: UserDao) {
     suspend fun updateUser(user:User){
         userDao.updateUser(user)
     }
+
+    suspend fun deleteUser(user:User) {
+        userDao.deleteUser(user)
+    }
+
+    suspend fun deleteAllUsers() {
+        userDao.deleteAllUsers()
+    }
+
 
 }
