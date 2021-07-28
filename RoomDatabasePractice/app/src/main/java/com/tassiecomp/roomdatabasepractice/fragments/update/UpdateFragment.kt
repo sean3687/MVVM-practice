@@ -48,22 +48,28 @@ class UpdateFragment : Fragment() {
     }
 
     private fun updateItem(){
+
+//        변경된 값들을 editText에서 가져옵니다.
         val firstName = updateFirstName_et.text.toString()
         val lastName = updateLastName_et.text.toString()
         val age = Integer.parseInt(updateAge_et.text.toString())
 
         if (inputCheck(firstName,lastName,updateAge_et.text)){
+            //updatedUser는 업데이트된 데이터입니다.
             val updatedUser = User(args.currentUser.id, firstName, lastName,age)
-            //val update Current user
+            //updateUser쿼리를 만들어서 database에 추가해줘야합니다.
+            //쿼리는 DAO에서 추가해야합니다. 지금은 구현만 해두겠습니다.
             mUserViewModel.updateUser(updatedUser)
 
             Toast.makeText(requireContext(),"UpdatedSuccessfully",Toast.LENGTH_SHORT).show()
             //navigate back
             findNavController().navigate(R.id.action_updateFragment_to_listFragment)
         } else{
+            //EditText가 빈칸이면 토스트 메세지
             Toast.makeText(requireContext(),"Please fill out all field",Toast.LENGTH_SHORT).show()
         }
     }
+    //editText가 비어있는 지확인
     private fun inputCheck(firstName:String, lastName:String, age: Editable):Boolean{
         return !(TextUtils.isEmpty(firstName)&& TextUtils.isEmpty(lastName)&& age.isEmpty())
     }
