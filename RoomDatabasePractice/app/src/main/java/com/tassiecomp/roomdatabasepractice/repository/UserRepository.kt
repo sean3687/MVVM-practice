@@ -3,7 +3,6 @@ package com.tassiecomp.roomdatabasepractice.repository
 import androidx.lifecycle.LiveData
 import com.tassiecomp.roomdatabasepractice.data.UserDao
 import com.tassiecomp.roomdatabasepractice.model.User
-import kotlinx.coroutines.Dispatchers
 
 class UserRepository(private val userDao: UserDao) {
 
